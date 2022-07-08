@@ -10,5 +10,5 @@ ccodepath = "../ccode/ccode/";
     "-o ../build/to_exec");
 
 %% second argument is the path where we want to save the 
-[status, cmdout] = system("./to_exec " + pwd);
+[status, cmdout] = system("../build/to_exec " + pwd);
 disp(cmdout)
