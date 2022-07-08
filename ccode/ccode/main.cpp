@@ -44,22 +44,22 @@ void write_x_to_csv(std::string filename, std::vector<std::vector<double>> x, st
 // Driver Code
 int main(int argc, char* argv[])
 {
-    
-    std::cout<< argc<< "\n";
-    std::cout<< argv[0] << "\n";
+    std::string outputDir;
+    std::string outputFileName;
     if (argc>1) {
-        //std::string outputDir =  argv[1];
-        std::cout<< argv[1] << "\n";
+        outputDir =  argv[1]; // "/.../outputDir/"
+        outputFileName = argv[2]; // "example.csv"
     } else {
-        //std::string outputDir = "/Users/sebastienhenry/Downloads";
+        outputDir = "/Users/sebastienhenry/Downloads/";
+        outputFileName = "entry.csv";
     }
     // characteristics of Titan
-    double g = 1.352; // m/s^2
+    double g0 = 1.352; // m/s^2
     double r0 = 2574.73e3; // m
     
 
     double beta = 28.75; // kg/m^2
-    double v_atm = 60312;
+    double v_atm = 6.0312e3;
     double h0 = 1270.01e3;
     double gamma0 = -65*M_PI/180;
     
@@ -75,7 +75,7 @@ int main(int argc, char* argv[])
     double H = 47.7196e3;
     
     ATMModel* titanexp = new ExpATMModel(rho0, H);
-    PlanarEOM eom = PlanarEOM(g, r0, titanexp, beta);
+    PlanarEOM eom = PlanarEOM(g0, r0, titanexp, beta);
     std::vector<double> state0 {v_atm, gamma0, h0};
     
     auto fp = std::bind(&EOM::dxdt, eom, std::placeholders::_1, std::placeholders::_2);
@@ -87,7 +87,7 @@ int main(int argc, char* argv[])
 
     std::cout << "duration of integration = " << duration.count() << " ms\n";
 
-    write_x_to_csv("/Users/sebastienhenry/Downloads/entry_exp.csv", state_integ, "t, v, gamma, h");
+    write_x_to_csv(outputDir+outputFileName, state_integ, "t, v, gamma, h");
     
     delete titanexp;
     

@@ -1,3 +1,6 @@
+outputDir = "../output/ ";
+outputFileName = "entry1.csv";
+
 currentFolder = pwd;
 [status, cmdout] = system("cd " + pwd);
 ccodepath = "../ccode/ccode/";
@@ -9,6 +12,5 @@ ccodepath = "../ccode/ccode/";
     ccodepath+"vec_functions.cpp " + ...
     "-o ../build/to_exec");
 
-%% second argument is the path where we want to save the 
-[status, cmdout] = system("../build/to_exec " + pwd);
+[status, cmdout] = system("../build/to_exec " + outputDir + " " + outputFileName);
 disp(cmdout)
