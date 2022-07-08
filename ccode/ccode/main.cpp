@@ -59,12 +59,12 @@ int main(int argc, char* argv[])
     
 
     double beta = 28.75; // kg/m^2
-    double v_atm = 6.0312e3;
-    double h0 = 1270.01e3;
-    double gamma0 = -65*M_PI/180;
+    double v_atm = 6.02852782e3;
+    double h0 = 1247.68717e3;
+    double gamma0 = -65.62*M_PI/180;
     
-    double t0 = 0;
-    double step = 0.1;
+    double t0 = -268.48;
+    double step = 0.5;
     
     // very course model of Titan Atm
     // pressure is around 1.5 Earth one, and T around /3 Earth one
