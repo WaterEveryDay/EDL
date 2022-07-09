@@ -14,7 +14,8 @@
 #include "integrator.hpp"
 #include "EOM.hpp"
 #include "atmospheric_model.hpp"
-//#include "print_hi.hpp"
+#include "vehicle.hpp"
+
 
 bool negative_altitude(std::vector<double> x) {
     return x[2] < 0.;
@@ -44,6 +45,14 @@ void write_x_to_csv(std::string filename, std::vector<std::vector<double>> x, st
 // Driver Code
 int main(int argc, char* argv[])
 {
+    
+    double v_atm = 6.02852782e3;
+    double h0 = 1247.68717e3;
+    double gamma0 = -65.62*M_PI/180;
+    
+    double t0 = -268.48;
+    double step = 0.1;
+    
     std::string outputDir;
     std::string outputFileName;
     if (argc>1) {
@@ -53,30 +62,10 @@ int main(int argc, char* argv[])
         outputDir = "/Users/sebastienhenry/Downloads/";
         outputFileName = "entry.csv";
     }
-    // characteristics of Titan
-    double g0 = 1.352; // m/s^2
-    double r0 = 2574.73e3; // m
     
-
-    double beta = 28.75; // kg/m^2
-    double v_atm = 6.02852782e3;
-    double h0 = 1247.68717e3;
-    double gamma0 = -65.62*M_PI/180;
-    
-    double t0 = -268.48;
-    double step = 0.1;
-    
-    // very course model of Titan Atm
-    // pressure is around 1.5 Earth one, and T around /3 Earth one
-    // rho_titan = 1.5 * 3 * rho_earth around 5.5
-    // rho at 1400 is around 1e-12
-    // H = -1400e3/log(1e-12/5.5)
-    // double rho0 = 5.5125;
-    // double H = 47.7196e3;
-    
-    //ATMModel* titanexp = new ExpATMModel(rho0, H, 175.);
     ATMModel* yellefit = new YelleATMModel();
-    PlanarEOM eom = PlanarEOM(g0, r0, yellefit, beta);
+    Vehicle* huygens = new Huygens();
+    PlanarEOM eom = PlanarEOM(yellefit, huygens);
     std::vector<double> state0 {v_atm, gamma0, h0};
     
     auto fp = std::bind(&EOM::dxdt, eom, std::placeholders::_1, std::placeholders::_2);

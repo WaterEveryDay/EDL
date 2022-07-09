@@ -10,10 +10,11 @@
 
 #include <stdio.h>
 #include <vector>
-#include "atmospheric_model.hpp"
-#include "vec_functions.hpp"
 #include <math.h>
 #include <iostream>
+#include "atmospheric_model.hpp"
+#include "vec_functions.hpp"
+#include "vehicle.hpp"
 
 class EOM {
 public:
@@ -21,24 +22,19 @@ public:
 };
 
 
-
 class PlanarEOM: public EOM {
-    // to do: g as a function of altitude
-    // to do: better atm model
     // to do: implement L/D
     
-    double g0; // gravity constant of the body
     double r0; // radius of the body
     ATMModel *atmmodel; // atmospheric model of the body
-    double beta; // ballistic coeff of the vehicle
-    double mu_titan = 6.67430e-11*1.3452e23; // TO CHANGE
+    Vehicle *vehicle; // vehicle
+
 
 public:
-    PlanarEOM(double g_in, double r0_in, ATMModel* atmmodel_in, double beta_in) {
-        g0 = g_in;
-        r0 = r0_in;
+    PlanarEOM(ATMModel* atmmodel_in, Vehicle* vehicle_in) {
         atmmodel = atmmodel_in;
-        beta = beta_in;
+        vehicle = vehicle_in;
+        r0 = atmmodel->getBodyRadius();
     }
     
     std::vector<double> dxdt(double t, std::vector<double> state) {
@@ -46,8 +42,14 @@ public:
         double gamma = state[1];
         double h = state[2];
         
-        double g = mu_titan/(r0+h)/(r0+h);
+        double g = atmmodel->getGravityAcceleration(h);
         double rho =  atmmodel->getDensity(h);
+        double lam = atmmodel->getMeanFreePath(h);
+        
+        double l = vehicle->getRefLength();
+        double Kn = lam/l;
+        double beta = vehicle->getBeta(Kn);
+        
         double dvdt = -rho * v * v / 2. / beta - g * sin(gamma);
         double dgammadt = 1./v * (v * v * cos(gamma) / (r0 + h) - g * cos(gamma));
         double dhdt = v * sin(gamma);

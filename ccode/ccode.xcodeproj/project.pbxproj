@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E9619B27287931BD007A5067 /* vehicle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9619B25287931BD007A5067 /* vehicle.cpp */; };
 		E9A6FAEB2877D89C00CCD3E6 /* vec_functions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9A6FAE22877D89C00CCD3E6 /* vec_functions.cpp */; };
-		E9A6FAEC2877D89C00CCD3E6 /* print_hi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9A6FAE32877D89C00CCD3E6 /* print_hi.cpp */; };
 		E9A6FAED2877D89C00CCD3E6 /* EOM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9A6FAE52877D89C00CCD3E6 /* EOM.cpp */; };
 		E9A6FAEE2877D89C00CCD3E6 /* atmospheric_model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9A6FAE62877D89C00CCD3E6 /* atmospheric_model.cpp */; };
 		E9A6FAEF2877D89C00CCD3E6 /* integrator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9A6FAE82877D89C00CCD3E6 /* integrator.cpp */; };
@@ -28,17 +28,17 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E9619B25287931BD007A5067 /* vehicle.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = vehicle.cpp; sourceTree = "<group>"; };
+		E9619B26287931BD007A5067 /* vehicle.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = vehicle.hpp; sourceTree = "<group>"; };
 		E9A6FAD62877D86600CCD3E6 /* ccode */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ccode; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9A6FAE02877D89C00CCD3E6 /* vec_functions.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = vec_functions.hpp; sourceTree = "<group>"; };
 		E9A6FAE12877D89C00CCD3E6 /* EOM.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = EOM.hpp; sourceTree = "<group>"; };
 		E9A6FAE22877D89C00CCD3E6 /* vec_functions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vec_functions.cpp; sourceTree = "<group>"; };
-		E9A6FAE32877D89C00CCD3E6 /* print_hi.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = print_hi.cpp; sourceTree = "<group>"; };
 		E9A6FAE42877D89C00CCD3E6 /* integrator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = integrator.hpp; sourceTree = "<group>"; };
 		E9A6FAE52877D89C00CCD3E6 /* EOM.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EOM.cpp; sourceTree = "<group>"; };
 		E9A6FAE62877D89C00CCD3E6 /* atmospheric_model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = atmospheric_model.cpp; sourceTree = "<group>"; };
 		E9A6FAE72877D89C00CCD3E6 /* atmospheric_model.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = atmospheric_model.hpp; sourceTree = "<group>"; };
 		E9A6FAE82877D89C00CCD3E6 /* integrator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = integrator.cpp; sourceTree = "<group>"; };
-		E9A6FAE92877D89C00CCD3E6 /* print_hi.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = print_hi.hpp; sourceTree = "<group>"; };
 		E9A6FAEA2877D89C00CCD3E6 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -79,10 +79,10 @@
 				E9A6FAE12877D89C00CCD3E6 /* EOM.hpp */,
 				E9A6FAE82877D89C00CCD3E6 /* integrator.cpp */,
 				E9A6FAE42877D89C00CCD3E6 /* integrator.hpp */,
-				E9A6FAE32877D89C00CCD3E6 /* print_hi.cpp */,
-				E9A6FAE92877D89C00CCD3E6 /* print_hi.hpp */,
 				E9A6FAE22877D89C00CCD3E6 /* vec_functions.cpp */,
 				E9A6FAE02877D89C00CCD3E6 /* vec_functions.hpp */,
+				E9619B25287931BD007A5067 /* vehicle.cpp */,
+				E9619B26287931BD007A5067 /* vehicle.hpp */,
 			);
 			path = ccode;
 			sourceTree = "<group>";
@@ -148,7 +148,7 @@
 				E9A6FAEF2877D89C00CCD3E6 /* integrator.cpp in Sources */,
 				E9A6FAF02877D89C00CCD3E6 /* main.cpp in Sources */,
 				E9A6FAEE2877D89C00CCD3E6 /* atmospheric_model.cpp in Sources */,
-				E9A6FAEC2877D89C00CCD3E6 /* print_hi.cpp in Sources */,
+				E9619B27287931BD007A5067 /* vehicle.cpp in Sources */,
 				E9A6FAEB2877D89C00CCD3E6 /* vec_functions.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
