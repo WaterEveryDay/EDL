@@ -72,13 +72,13 @@
 		E9A6FAD82877D86600CCD3E6 /* ccode */ = {
 			isa = PBXGroup;
 			children = (
+				E9A6FAEA2877D89C00CCD3E6 /* main.cpp */,
 				E9A6FAE62877D89C00CCD3E6 /* atmospheric_model.cpp */,
 				E9A6FAE72877D89C00CCD3E6 /* atmospheric_model.hpp */,
 				E9A6FAE52877D89C00CCD3E6 /* EOM.cpp */,
 				E9A6FAE12877D89C00CCD3E6 /* EOM.hpp */,
 				E9A6FAE82877D89C00CCD3E6 /* integrator.cpp */,
 				E9A6FAE42877D89C00CCD3E6 /* integrator.hpp */,
-				E9A6FAEA2877D89C00CCD3E6 /* main.cpp */,
 				E9A6FAE32877D89C00CCD3E6 /* print_hi.cpp */,
 				E9A6FAE92877D89C00CCD3E6 /* print_hi.hpp */,
 				E9A6FAE22877D89C00CCD3E6 /* vec_functions.cpp */,
