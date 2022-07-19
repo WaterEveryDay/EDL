@@ -10,6 +10,7 @@
 #include <chrono>
 #include <fstream>
 #include <iostream>
+#include <Eigen/Dense>
 
 #include "integrator.hpp"
 #include "EOM.hpp"
@@ -63,23 +64,41 @@ int main(int argc, char* argv[])
         outputFileName = "entry.csv";
     }
     
-    ATMModel* yellefit = new YelleATMModel();
+    //ATMModel* atmmod = new YelleATMModel();
+    ATMModel* atmmod = new TitanExpATMModel();
     Vehicle* huygens = new Huygens();
-    PlanarEOM eom = PlanarEOM(yellefit, huygens);
+    
+    std::ofstream myAtmFile(outputDir+"atm_model_"+outputFileName);
+    myAtmFile << "h, "<< "rho, " << "T, " << "P, " << "kn, " << "C_D" << "\n";
+    for (double h=0; h<=1300e3; h+=10e3) {
+        myAtmFile << h << ", ";
+        myAtmFile << atmmod->getDensity(h) << ", ";
+        myAtmFile << atmmod->getTemperature(h) << ", ";
+        myAtmFile << atmmod->getPressure(h) << ", ";
+        double lam = atmmod->getMeanFreePath(h);
+        double L = huygens->getRefLength();
+        double Kn = lam/L;
+        myAtmFile << Kn << ", ";
+        double C_D = huygens->getMass() / huygens->getBeta(Kn) / huygens->getRefArea();
+        myAtmFile << C_D << "\n";
+    }
+    myAtmFile.close();
+    
+    PlanarEOM eom = PlanarEOM(atmmod, huygens);
     std::vector<double> state0 {v_atm, gamma0, h0};
+
+//    auto fp = std::bind(&EOM::dxdt, eom, std::placeholders::_1, std::placeholders::_2);
+//
+//    auto start = std::chrono::high_resolution_clock::now();
+//    std::vector<std::vector<double>> state_integ = rk4(fp, t0, step, {v_atm, gamma0, h0}, negative_altitude);
+//    auto stop = std::chrono::high_resolution_clock::now();
+//    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
+//
+//    std::cout << "duration of integration = " << duration.count() << " ms\n";
+    //write_x_to_csv(outputDir+outputFileName, state_integ, "t, v, gamma, h");
     
-    auto fp = std::bind(&EOM::dxdt, eom, std::placeholders::_1, std::placeholders::_2);
-
-    auto start = std::chrono::high_resolution_clock::now();
-    std::vector<std::vector<double>> state_integ = rk4(fp, t0, step, {v_atm, gamma0, h0}, negative_altitude);
-    auto stop = std::chrono::high_resolution_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
-
-    std::cout << "duration of integration = " << duration.count() << " ms\n";
-
-    write_x_to_csv(outputDir+outputFileName, state_integ, "t, v, gamma, h");
-    
-    delete yellefit;
+    delete atmmod;
+    delete huygens;
     
     return 0;
 }

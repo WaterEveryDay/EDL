@@ -1,6 +1,10 @@
 outputDir = "../output/ ";
-outputFileName = "entry1.csv";
+outputFileName = "entryExp.csv";
 
+runc(outputDir, outputFileName)
+
+%%
+function runc(outputDir, outputFileName)
 currentFolder = pwd;
 [status, cmdout] = system("cd " + pwd);
 ccodepath = "../ccode/ccode/";
@@ -15,3 +19,4 @@ ccodepath = "../ccode/ccode/";
 
 [status, cmdout] = system("../build/to_exec " + outputDir + " " + outputFileName);
 disp(cmdout)
+end

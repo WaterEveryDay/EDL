@@ -19,6 +19,9 @@
 class EOM {
 public:
     virtual std::vector<double> dxdt(double t, std::vector<double> state)=0;
+    ATMModel* getAtmmodel()=0;
+    
+    Vehicle* getVehicle()=0;
 };
 
 
@@ -56,6 +59,15 @@ public:
         
         return std::vector<double> {dvdt, dgammadt, dhdt};
     }
+    
+    ATMModel* getAtmmodel() {
+        return atmmodel;
+    }
+    
+    Vehicle* getVehicle() {
+        return vehicle;
+    }
+    
 };
 
 

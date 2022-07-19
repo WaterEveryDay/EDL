@@ -33,7 +33,6 @@ public:
     
     double getMass() {
         return mass;
-        
     }
     
     double getRefArea() {

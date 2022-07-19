@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E937345928870A730011CE51 /* covariances.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E937345728870A730011CE51 /* covariances.cpp */; };
 		E9619B27287931BD007A5067 /* vehicle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9619B25287931BD007A5067 /* vehicle.cpp */; };
 		E9A6FAEB2877D89C00CCD3E6 /* vec_functions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9A6FAE22877D89C00CCD3E6 /* vec_functions.cpp */; };
 		E9A6FAED2877D89C00CCD3E6 /* EOM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9A6FAE52877D89C00CCD3E6 /* EOM.cpp */; };
@@ -28,6 +29,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E937345728870A730011CE51 /* covariances.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = covariances.cpp; sourceTree = "<group>"; };
+		E937345828870A730011CE51 /* covariances.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = covariances.hpp; sourceTree = "<group>"; };
 		E9619B25287931BD007A5067 /* vehicle.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = vehicle.cpp; sourceTree = "<group>"; };
 		E9619B26287931BD007A5067 /* vehicle.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = vehicle.hpp; sourceTree = "<group>"; };
 		E9A6FAD62877D86600CCD3E6 /* ccode */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ccode; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -53,11 +56,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E937345A288710900011CE51 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		E9A6FACD2877D86600CCD3E6 = {
 			isa = PBXGroup;
 			children = (
 				E9A6FAD82877D86600CCD3E6 /* ccode */,
 				E9A6FAD72877D86600CCD3E6 /* Products */,
+				E937345A288710900011CE51 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -83,6 +94,8 @@
 				E9A6FAE02877D89C00CCD3E6 /* vec_functions.hpp */,
 				E9619B25287931BD007A5067 /* vehicle.cpp */,
 				E9619B26287931BD007A5067 /* vehicle.hpp */,
+				E937345728870A730011CE51 /* covariances.cpp */,
+				E937345828870A730011CE51 /* covariances.hpp */,
 			);
 			path = ccode;
 			sourceTree = "<group>";
@@ -146,6 +159,7 @@
 			files = (
 				E9A6FAED2877D89C00CCD3E6 /* EOM.cpp in Sources */,
 				E9A6FAEF2877D89C00CCD3E6 /* integrator.cpp in Sources */,
+				E937345928870A730011CE51 /* covariances.cpp in Sources */,
 				E9A6FAF02877D89C00CCD3E6 /* main.cpp in Sources */,
 				E9A6FAEE2877D89C00CCD3E6 /* atmospheric_model.cpp in Sources */,
 				E9619B27287931BD007A5067 /* vehicle.cpp in Sources */,
@@ -269,6 +283,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = /Users/sebastienhenry/Documents/Eigen/eigen/;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -277,6 +292,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = /Users/sebastienhenry/Documents/Eigen/eigen/;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
