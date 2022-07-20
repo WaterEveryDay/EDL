@@ -12,16 +12,22 @@
 #include <vector>
 #include <math.h>
 #include <iostream>
+#include <list>
+
 #include "atmospheric_model.hpp"
 #include "vec_functions.hpp"
 #include "vehicle.hpp"
+#include "Eigen/Dense"
+#include "integrator.hpp"
+
+using Eigen::VectorXd;
 
 class EOM {
 public:
-    virtual std::vector<double> dxdt(double t, std::vector<double> state)=0;
-    ATMModel* getAtmmodel()=0;
-    
-    Vehicle* getVehicle()=0;
+    virtual VectorXd dxdt(double t, VectorXd state)=0;
+    virtual ATMModel* getAtmmodel()=0;
+    virtual Vehicle* getVehicle()=0;
+    virtual std::vector<VectorXd> propagate(double t0, double step, VectorXd x0, bool (*stopcond)(VectorXd))=0;
 };
 
 
@@ -40,10 +46,10 @@ public:
         r0 = atmmodel->getBodyRadius();
     }
     
-    std::vector<double> dxdt(double t, std::vector<double> state) {
-        double v = state[0];
-        double gamma = state[1];
-        double h = state[2];
+    VectorXd dxdt(double t, VectorXd state) {
+        double v = state(0);
+        double gamma = state(1);
+        double h = state(2);
         
         double g = atmmodel->getGravityAcceleration(h);
         double rho =  atmmodel->getDensity(h);
@@ -56,8 +62,9 @@ public:
         double dvdt = -rho * v * v / 2. / beta - g * sin(gamma);
         double dgammadt = 1./v * (v * v * cos(gamma) / (r0 + h) - g * cos(gamma));
         double dhdt = v * sin(gamma);
-        
-        return std::vector<double> {dvdt, dgammadt, dhdt};
+        VectorXd deriv(3);
+        deriv << dvdt, dgammadt, dhdt;
+        return deriv;
     }
     
     ATMModel* getAtmmodel() {
@@ -67,7 +74,10 @@ public:
     Vehicle* getVehicle() {
         return vehicle;
     }
-    
+    std::vector<VectorXd> propagate(double t0, double step, VectorXd x0, bool (*stopcond)(VectorXd)) {
+        auto fp = std::bind(&EOM::dxdt, this, std::placeholders::_1, std::placeholders::_2);
+        return rk4(fp, t0, step, x0, stopcond);
+    }
 };
 
 

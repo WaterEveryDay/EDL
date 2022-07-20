@@ -1,5 +1,5 @@
 outputDir = "../output/ ";
-outputFileName = "entryExp.csv";
+outputFileName = "entryYelle.csv";
 
 runc(outputDir, outputFileName)
 

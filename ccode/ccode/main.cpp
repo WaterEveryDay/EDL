@@ -18,19 +18,19 @@
 #include "vehicle.hpp"
 
 
-bool negative_altitude(std::vector<double> x) {
-    return x[2] < 0.;
+bool negative_altitude(VectorXd x) {
+    return x(2) < 0.;
 }
 
-void write_x_to_csv(std::string filename, std::vector<std::vector<double>> x, std::string columnnames) {
+void write_x_to_csv(std::string filename, std::vector<VectorXd> x, std::string columnnames) {
     std::ofstream myFile(filename);
     myFile << columnnames << "\n";
     long jsize = x[0].size();
     long xsize = x.size();
     for (int i=0; i<xsize; i++) {
-        std::vector<double> xi = x[i];
+        VectorXd xi = x[i];
         for (int j=0; j<jsize; j++) {
-            myFile << xi[j];
+            myFile << xi(j);
             if (j<jsize-1) {
                 myFile << ", ";
             }
@@ -64,8 +64,8 @@ int main(int argc, char* argv[])
         outputFileName = "entry.csv";
     }
     
-    //ATMModel* atmmod = new YelleATMModel();
-    ATMModel* atmmod = new TitanExpATMModel();
+    ATMModel* atmmod = new YelleATMModel();
+    //ATMModel* atmmod = new TitanExpATMModel();
     Vehicle* huygens = new Huygens();
     
     std::ofstream myAtmFile(outputDir+"atm_model_"+outputFileName);
@@ -85,17 +85,20 @@ int main(int argc, char* argv[])
     myAtmFile.close();
     
     PlanarEOM eom = PlanarEOM(atmmod, huygens);
-    std::vector<double> state0 {v_atm, gamma0, h0};
+    VectorXd state0(3);
+    state0 << v_atm, gamma0, h0;
 
-//    auto fp = std::bind(&EOM::dxdt, eom, std::placeholders::_1, std::placeholders::_2);
+
 //
-//    auto start = std::chrono::high_resolution_clock::now();
+    auto start = std::chrono::high_resolution_clock::now();
+    std::vector<VectorXd> state_integ = eom.propagate(t0, step, state0, negative_altitude);
 //    std::vector<std::vector<double>> state_integ = rk4(fp, t0, step, {v_atm, gamma0, h0}, negative_altitude);
-//    auto stop = std::chrono::high_resolution_clock::now();
-//    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
+    auto stop = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
 //
-//    std::cout << "duration of integration = " << duration.count() << " ms\n";
-    //write_x_to_csv(outputDir+outputFileName, state_integ, "t, v, gamma, h");
+    std::cout << "duration of integration = " << duration.count() << " ms\n";
+    std::cout << "hi" << "\n";
+    write_x_to_csv(outputDir+outputFileName, state_integ, "t, v, gamma, h");
     
     delete atmmod;
     delete huygens;
