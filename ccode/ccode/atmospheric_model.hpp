@@ -19,6 +19,7 @@ class ATMModel {       // The class
     virtual double getMeanFreePath(double h)=0;
     virtual double getGravityAcceleration(double h)=0;
     virtual double getBodyRadius()=0;
+    virtual double getBodyRotation()=0;
 };
 
 class YelleATMModel: public ATMModel {
@@ -37,6 +38,7 @@ class YelleATMModel: public ATMModel {
     double M_titan = 1.3452e23; // kg
     double r0 = 2574.73e3; // radius Titan (m)
     double mu = G*M_titan; // gravitational param Titan
+    double om = 4.5606e-06; // rad/s
     
     // data from Yelle
     const static int n_elem = 10;
@@ -108,6 +110,10 @@ public:
         return r0;
     }
     
+    double getBodyRotation() {
+        return om;
+    }
+    
 };
 
 class TitanExpATMModel: public ATMModel {
@@ -126,6 +132,7 @@ class TitanExpATMModel: public ATMModel {
     double M_titan = 1.3452e23; // kg
     double r0 = 2574.73e3; // radius Titan (m)
     double mu = G*M_titan; // gravitational param Titan
+    double om = 4.5606e-06; // rad/s
     
     // data from Yelle
     const static int n_elem = 2;
@@ -197,28 +204,10 @@ public:
         return r0;
     }
     
+    double getBodyRotation() {
+        return om;
+    }
+    
 };
-
-//class ExpATMModel: public ATMModel {
-//    double rho0;
-//    double H;
-//    double T;
-//public:
-//    ExpATMModel(double rho0_in, double H_in, double T_in) {
-//        rho0 = rho0_in;
-//        H = H_in;
-//        T = T_in;
-//    }
-//
-//    double getDensity(double h) {
-//        double rho = rho0 * exp(-h/H);
-//        return rho;
-//    }
-//    double getTemperature(double h) {
-//        return T;
-//    }
-//};
-
-
 
 #endif /* atmospheric_model_hpp */

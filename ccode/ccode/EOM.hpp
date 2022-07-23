@@ -81,4 +81,63 @@ public:
 };
 
 
+class NonPlanarEOM: public EOM {
+    // to do: implement L/D
+    
+    double r0; // radius of the body
+    ATMModel *atmmodel; // atmospheric model of the body
+    Vehicle *vehicle; // vehicle
+
+
+public:
+    NonPlanarEOM(ATMModel* atmmodel_in, Vehicle* vehicle_in) {
+        atmmodel = atmmodel_in;
+        vehicle = vehicle_in;
+        r0 = atmmodel->getBodyRadius();
+    }
+    
+    VectorXd dxdt(double t, VectorXd state) {
+        double v = state(0);
+        double gamma = state(1);
+        double h = state(2);
+        double psi = state(3); // heading angle
+        // double theta = state(4); // longitude
+        double phi = state(5); // latitude
+        
+        double g = atmmodel->getGravityAcceleration(h);
+        double rho =  atmmodel->getDensity(h);
+        double lam = atmmodel->getMeanFreePath(h);
+        double om = atmmodel->getBodyRotation();
+        
+        double l = vehicle->getRefLength();
+        double Kn = lam/l;
+        double beta = vehicle->getBeta(Kn);
+        
+        double r = r0+h;
+        
+        double dvdt = -rho * v * v / 2. / beta - g * sin(gamma) + om * om * r * cos(phi) * (sin(gamma)*cos(phi) - cos(gamma)*sin(phi)*sin(psi));
+        double dgammadt =  v * cos(gamma) / r - g * cos(gamma) / v + 2*om*cos(phi)*cos(psi) + om * om * r / v * cos(phi) * (cos(gamma) * cos(phi) + sin(gamma)*sin(phi)*sin(psi));
+        double dhdt = v * sin(gamma);
+        double dpsidt = - v*cos(gamma)*cos(psi)*tan(phi) / r + 2*om*(tan(gamma)*cos(phi)*sin(psi)-sin(phi)) - om*om*r/(v*cos(gamma)) * sin(phi)*cos(phi)*cos(psi);
+        double dthetadt = -v*cos(gamma)*sin(psi)/(r*cos(phi));
+        double dphidt = v*cos(gamma)*cos(psi)/r;
+        
+        VectorXd deriv(6);
+        deriv << dvdt, dgammadt, dhdt, dpsidt, dthetadt, dphidt;
+        return deriv;
+    }
+    
+    ATMModel* getAtmmodel() {
+        return atmmodel;
+    }
+    
+    Vehicle* getVehicle() {
+        return vehicle;
+    }
+    std::vector<VectorXd> propagate(double t0, double step, VectorXd x0, bool (*stopcond)(VectorXd)) {
+        auto fp = std::bind(&EOM::dxdt, this, std::placeholders::_1, std::placeholders::_2);
+        return rk4(fp, t0, step, x0, stopcond);
+    }
+};
+
 #endif /* EOM_hpp */
