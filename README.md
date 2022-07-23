@@ -22,3 +22,7 @@ The ccode folder contains the c++ simulation framework. It uses Eigen for linear
 -- Integrator contains a Runge-Kutta 4th order
 - covariances has some functions to find the sensitivities and propagate the covariance to the ground
 
+command I used, feel free to modify it:
+
+clang++ -std=c++11 -stdlib=libc++ -I /Users/sebastienhenry/Documents/GTSAM/gtsam/gtsam/3rdparty/Eigen/ ../ccode/ccode/main.cpp ../ccode/ccode/atmospheric_model.cpp ../ccode/ccode/EOM.cpp ../ccode/ccode/integrator.cpp ../ccode/ccode/vehicle.cpp -o ../build/to_exec
+
