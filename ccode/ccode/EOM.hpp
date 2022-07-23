@@ -15,7 +15,6 @@
 #include <list>
 
 #include "atmospheric_model.hpp"
-#include "vec_functions.hpp"
 #include "vehicle.hpp"
 #include "Eigen/Dense"
 #include "integrator.hpp"
