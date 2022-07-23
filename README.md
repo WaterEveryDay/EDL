@@ -1,6 +1,8 @@
 # EDL
 This is the repository for my final project in AE 6355 - EDL.
 
+![plot](./ellipsoids.png)
+
 ### MATLAB (Easy Way)
 The reader is invited to use the MATLAB scripts to reproduce the plots.
 - draw_plots_planar to have the plots of the atmospheric models, and the planar reentry
