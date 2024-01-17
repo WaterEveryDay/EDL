@@ -1,5 +1,5 @@
 # EDL
-This is the repository for my final project in AE 6355 - EDL.
+This is the repository for my final project in AE 6355 - EDL. In this project, we compare the landing ellipse size by comparing two types of triangulation algorithms used in the optical pipeline for terrain relative navigation. A full propagator is coded in C++ along with a generic interface. A practical example is given for a capsule landing on Titan.
 
 ![plot](./ellipsoids.png)
 
@@ -16,7 +16,7 @@ The reader is invited to use the MATLAB scripts to reproduce the plots.
 Some csv simulation are already in the output folder and are used by the MATLAB scripts.
 
 ### CCDODE
-The ccode folder contains the c++ simulation framework. It uses Eigen for linear algebra, and *it is important that you properly link Eigen* in your terminal.
+The ccode folder contains the C++ simulation framework. It uses Eigen for linear algebra, and *it is important that you properly link Eigen* in your terminal.
 - Run the main is the easy way
 - OEM is a class representing the equations of motion using all the classes hereafter
 -- Yelle and Exponential atmospheric models are implemented
