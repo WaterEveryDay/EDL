@@ -1,7 +1,8 @@
 # EDL
-This is the repository for my final project in AE 6355 - EDL. In this project, we compare the landing ellipse size by comparing two types of triangulation algorithms used in the optical pipeline for terrain relative navigation. A full propagator is coded in C++ along with a generic interface. A practical example is given for a capsule landing on Titan.
-
 ![plot](./ellipsoids.png)
+This is the repository for my final project in AE 6355 - Entry, Descent, and Landing (EDL). In this project, we analyze ballistic landing performance on Titan, Saturn's largest moon (The parameters can be easily adapted to other bodies). The landing position ellipsoid sizes are compared under two types of triangulation algorithms used in the optical pipeline for terrain relative navigation. A full propagator is coded in C++ along with a generic interface.
+
+![plot](./FOV_map.png)
 
 ### MATLAB (Easy Way)
 The reader is invited to use the MATLAB scripts to reproduce the plots.
@@ -28,4 +29,4 @@ command I used, feel free to modify it:
 
 clang++ -std=c++11 -stdlib=libc++ -I /Users/sebastienhenry/Documents/GTSAM/gtsam/gtsam/3rdparty/Eigen/ ../ccode/ccode/main.cpp ../ccode/ccode/atmospheric_model.cpp ../ccode/ccode/EOM.cpp ../ccode/ccode/integrator.cpp ../ccode/ccode/vehicle.cpp -o ../build/to_exec
 
-![plot](./FOV_map.png)
+
